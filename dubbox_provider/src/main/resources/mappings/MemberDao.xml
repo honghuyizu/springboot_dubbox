@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dubbox.provider.dao.MemberDao">
+	<resultMap id="userMap" type="com.dubbox.provider.entity.Member"/>
+
+
+	<sql id="baseMemberColumns">
+		 id                   as  id               ,
+		 name            as  name        ,
+		 age                as  age            ,
+		 sex                as  sex            ,
+		 mobile           as  mobile
+	</sql>
+
+	<sql id="baseUserJoins">
+
+	</sql>
+
+	<select id="get" resultType="com.dubbox.provider.entity.Member">
+		SELECT
+		<include refid="baseMemberColumns" />
+		FROM member a
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getMemberByMobile" resultType="com.dubbox.provider.entity.Member">
+		SELECT
+		<include refid="baseMemberColumns" />
+		FROM member a
+		WHERE a.mobile = #{mobile}
+	</select>
+
+	<select id="findList" resultType="com.dubbox.provider.entity.Member">
+		SELECT
+		<include refid="baseMemberColumns" />
+		FROM member a
+		<where>
+
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAllList" resultType="com.dubbox.provider.entity.Member">
+		SELECT
+		<include refid="baseMemberColumns" />
+		FROM member a
+		<where>
+
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		INTO member(
+		name                ,
+		sex          ,
+		age           ,
+		mobile
+		) VALUES (
+		#{name},
+		#{sex},
+		#{age},
+		#{mobile}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE member SET
+		 name =#{name},
+		 sex =#{sex},
+		 age =#{age},
+		 mobile =#{mobile}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		DELETE FROM member
+		WHERE id = #{id}
+	</update>
+
+
+</mapper>

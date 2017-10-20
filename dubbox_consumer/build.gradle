@@ -1,0 +1,13 @@
+//设置本地依赖包
+dependencies {
+    //设置依赖工程
+    compile project(':dubbox_rsfservice')
+    compile project(':dubbox_common')
+}
+//设置jar的主类
+bootRepackage {
+    mainClass = 'com.dubbox.consumer.ConsumerMain'
+}
+springBoot {
+    mainClass = 'com.dubbox.consumer.ConsumerMain'
+}

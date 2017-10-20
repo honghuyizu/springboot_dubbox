@@ -1,0 +1,6 @@
+rootProject.name ='springboot_dubbox'
+include 'dubbox_provider'
+include 'dubbox_common'
+include 'dubbox_consumer'
+include 'dubbox_rsfservice'
+
